@@ -1,17 +1,37 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-require("dotenv").config({path: "./config.env" });
+require("dotenv").config({ path: "./config.env" });
 const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
-app.use(require("./routes/record"));
-// get driver connection
-const dbo = require("./db/conn");
+
+// Import your MongoDB module
+const mongodb = require("./db/conn");
+
+// Import your product, user, and donation routes
+const productRoutes = require("./routes/product");
+const userRoutes = require("./routes/userinfo");
+const donationRoutes = require("./routes/donation");
+
+// Use your routes
+app.use("/products", productRoutes);
+app.use("/users", userRoutes);
+app.use("/donations", donationRoutes);
+
 app.listen(port, () => {
-    // perform a database connection when server starts
-    dbo.connectToServer(function (err) {
-        if (err) console.error(err);
-    });
-    console.log(`Server is running on port: ${port}`);
+  // Perform database connections when the server starts
+  mongodb.connectToServer("productinfo", function (err) {
+    if (err) console.error(err);
+  });
+
+  mongodb.connectToServer("userinfo", function (err) {
+    if (err) console.error(err);
+  });
+
+  mongodb.connectToServer("donationdb", function (err) {
+    if (err) console.error(err);
+  });
+
+  console.log(`Server is running on port: ${port}`);
 });
