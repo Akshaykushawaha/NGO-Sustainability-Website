@@ -49,7 +49,27 @@ router.get("/:id", (req, res) => {
     return res.json(user);
   });
 });
-
+// Sign-in route
+router.post("/signin", (req, res) => {
+    const db = mongodb.getDb();
+    const { username, password } = req.body; // Assuming you send username and password in the request
+  
+    // Check user credentials against your database
+    db.collection("users").findOne({ username, password }, (err, user) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "An error occurred" });
+      }
+  
+      if (!user) {
+        return res.status(401).json({ message: "Invalid username or password" });
+      }
+  
+      // On successful sign-in, you can return user information or a token
+      return res.status(200).json({ message: "Sign-in successful", user });
+    });
+  });
+  
 // Add more routes as needed
 
 module.exports = router;
