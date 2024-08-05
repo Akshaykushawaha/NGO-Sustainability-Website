@@ -13,5 +13,11 @@
 # CSS
 *.css text eol=lf
 
+# TypeScript
+*.ts text eol=lf
+
+# TypeScript JSX
+*.tsx text eol=lf
+
 # Node.js dependency lock files
 package-lock.json text eol=lf
