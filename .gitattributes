@@ -21,3 +21,6 @@
 
 # Node.js dependency lock files
 package-lock.json text eol=lf
+
+# Vendored directories
+mern/client/src/components/** linguist-vendored
