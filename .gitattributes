@@ -23,4 +23,4 @@
 package-lock.json text eol=lf
 
 # Vendored directories
-mern/client/src/components/** linguist-vendored
+mern/client/src/components/**/*.css linguist-vendored
